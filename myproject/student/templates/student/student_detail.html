@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ student.name }} - Details</title>
+    <style>
+        /* Reset styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3e8ff, #d3b3ff); /* double purple theme */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .student-container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            color: #5a2d82; /* deep purple */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #7b42f6;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        p {
+            color: #333333;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        img {
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+            max-width: 100%;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #7b42f6, #9c66ff); /* purple gradient */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 66, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="student-container">
+        <h2>{{ student.name }}</h2>
+        <p><strong>Age:</strong> {{ student.age }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Course:</strong> {{ student.course }}</p>
+
+        {% if student.studentprofile %}
+            <h3>Profile</h3>
+            <p><strong>Address:</strong> {{ student.studentprofile.address }}</p>
+
+            {% if student.studentprofile.profile_image %}
+                <img src="{{ student.studentprofile.profile_image.url }}" alt="{{ student.name }} Profile Image">
+            {% endif %}
+        {% else %}
+            <a href="{% url 'student_profile' student.id %}">Add Profile</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3e8ff; /* light purple background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #5a2d82; /* deep purple */
+        }
+
+        form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        form input:focus {
+            border-color: #7b42f6; /* purple focus */
+            outline: none;
+        }
+
+        form button {
+            width: 100%;
+            padding: 12px;
+            background: #7b42f6; /* main purple button */
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        form button:hover {
+            background: #5a2d82; /* darker purple on hover */
+            transform: translateY(-2px);
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            color: #555555;
+            font-size: 14px;
+        }
+
+        p a {
+            color: #7b42f6; /* purple links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #d93025;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        {% if error %}
+            <p class="error">Invalid username or password</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+
+        <p>
+            Don't have an account?
+            <a href="{% url 'signup' %}">Create one</a>
+        </p>
+    </div>
+
+</body>
+</html>
+

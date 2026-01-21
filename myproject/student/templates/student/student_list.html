@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <style>
+        /* Reset default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3e8ff, #d3b3ff); /* double purple theme */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #5a2d82;
+            margin-bottom: 20px;
+        }
+
+        .top-actions {
+            margin-bottom: 20px;
+        }
+
+        .top-actions a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 15px;
+            background: linear-gradient(90deg, #7b42f6, #9c66ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .top-actions a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 66, 246, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background: #7b42f6; /* purple header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f7f0ff;
+        }
+
+        tr:hover {
+            background: #e0d0ff;
+        }
+
+        td a {
+            margin-right: 5px;
+            padding: 5px 10px;
+            background: #9c66ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 13px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        td a:hover {
+            background: #7b42f6;
+            transform: translateY(-1px);
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        /* Updated Logout button styling */
+        .welcome a {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background: linear-gradient(90deg, #7b42f6, #9c66ff); /* purple gradient */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .welcome a:hover {
+            background: linear-gradient(90deg, #9c66ff, #7b42f6); /* reverse gradient on hover */
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-actions">
+        <a href="{% url 'student_create' %}">Add Student</a>
+    </div>
+
+    <div class="welcome">
+        <h2>Welcome, {{ request.user.username }}</h2>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+        {% for s in student %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.age }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.course }}</td>
+            <td>
+                <a href="{% url 'student_update' s.id %}">Edit</a>
+                <a href="{% url 'student_delete' s.id %}">Delete</a>
+                <a href="{% url 'student_detail' s.id %}">View</a>
+                <a href="{% url 'student_profile' s.id %}">Add Profile</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>
